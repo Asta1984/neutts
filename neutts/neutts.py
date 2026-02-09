@@ -107,18 +107,18 @@ class NeuTTS:
 
         self._load_codec(codec_repo, codec_device)
 
-        # Load watermarker (optional)
-        try:
-            import perth
+        # # Load watermarker (optional)
+        # try:
+        #     import perth
 
-            self.watermarker = perth.PerthImplicitWatermarker()
-        except (ImportError, AttributeError) as e:
-            warnings.warn(
-                f"Perth watermarking unavailable: {e}. "
-                "Audio will not be watermarked. "
-                "Install with: pip install perth>=0.2.0"
-            )
-            self.watermarker = None
+        #     self.watermarker = perth.PerthImplicitWatermarker()
+        # except (ImportError, AttributeError) as e:
+        #     warnings.warn(
+        #         f"Perth watermarking unavailable: {e}. "
+        #         "Audio will not be watermarked. "
+        #         "Install with: pip install perth>=0.2.0"
+        #     )
+        #     self.watermarker = None
 
     def _load_backbone(self, backbone_repo, backbone_device):
         print(f"Loading backbone from: {backbone_repo} on {backbone_device} ...")
@@ -236,8 +236,8 @@ class NeuTTS:
         wav = self._decode(output_str)
         watermarked_wav = (
             wav
-            if self.watermarker is None
-            else self.watermarker.apply_watermark(wav, sample_rate=24_000)
+            #if self.watermarker is None
+            #else self.watermarker.apply_watermark(wav, sample_rate=24_000
         )
 
         return watermarked_wav
@@ -423,8 +423,8 @@ class NeuTTS:
                 recon = self._decode("".join(curr_codes))
                 recon = (
                     recon
-                    if self.watermarker is None
-                    else self.watermarker.apply_watermark(recon, sample_rate=24_000)
+                    #if self.watermarker is None
+                    #else self.watermarker.apply_watermark(recon, sample_rate=24_000)
                 )
                 recon = recon[sample_start:sample_end]
                 audio_cache.append(recon)
@@ -454,8 +454,8 @@ class NeuTTS:
             recon = self._decode("".join(curr_codes))
             recon = (
                 recon
-                if self.watermarker is None
-                else self.watermarker.apply_watermark(recon, sample_rate=24_000)
+                #if self.watermarker is None
+                #else self.watermarker.apply_watermark(recon, sample_rate=24_000)
             )
             recon = recon[sample_start:]
             audio_cache.append(recon)
